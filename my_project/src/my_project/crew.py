@@ -2,13 +2,15 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
+from crewai_tools import SerperDevTool
+
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
 
 @CrewBase
-class Trading():
-    """Trading crew"""
+class MyProject():
+    """MyProject crew"""
 
     agents: List[BaseAgent]
     tasks: List[Task]
@@ -20,30 +22,17 @@ class Trading():
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def trending_company_finder(self) -> Agent:
+    def researcher(self) -> Agent:
         return Agent(
-            config=self.agents_config['trending_company_finder'], # type: ignore[index]
+            config=self.agents_config['researcher'], # type: ignore[index]
+            tools=[SerperDevTool()],
             verbose=True
         )
 
     @agent
-    def financial_researcher(self) -> Agent:
+    def reporting_analyst(self) -> Agent:
         return Agent(
-            config=self.agents_config['financial_researcher'], # type: ignore[index]
-            verbose=True
-        )
-
-    @agent
-    def stock_picker(self) -> Agent:
-        return Agent(
-            config=self.agents_config['stock_picker'], # type: ignore[index]
-            verbose=True
-        )
-
-    @agent
-    def manager(self) -> Agent:
-        return Agent(
-            config=self.agents_config['manager'], # type: ignore[index]
+            config=self.agents_config['reporting_analyst'], # type: ignore[index]
             verbose=True
         )
 
@@ -57,27 +46,15 @@ class Trading():
         )
 
     @task
-    def find_trending_companies(self) -> Task:
+    def reporting_task(self) -> Task:
         return Task(
-            config=self.tasks_config['find_trending_companies'], # type: ignore[index]
-            output_file='report.md'
-        )
-    @task
-    def research_trending_companies(self) -> Task:
-        return Task(
-            config=self.tasks_config['research_trending_companies'], # type: ignore[index]
-            output_file='report.md'
-        )
-    @task
-    def pick_best_company(self) -> Task:
-        return Task(
-            config=self.tasks_config['pick_best_company'], # type: ignore[index]
+            config=self.tasks_config['reporting_task'], # type: ignore[index]
             output_file='report.md'
         )
 
     @crew
     def crew(self) -> Crew:
-        """Creates the Trading crew"""
+        """Creates the MyProject crew"""
         # To learn how to add knowledge sources to your crew, check out the documentation:
         # https://docs.crewai.com/concepts/knowledge#what-is-knowledge
 
