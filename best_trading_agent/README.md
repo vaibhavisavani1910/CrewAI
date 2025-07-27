@@ -1,54 +1,73 @@
-# BestTradingAgent Crew
+# 📈 AI-Powered Stock Trading Crew (CrewAI)
 
-Welcome to the Best Trading Agent Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+This project is an **AI-native multi-agent system** built using [CrewAI](https://crewai.com/) to automatically:
 
-## Installation
+- Discover companies trending in the news
+- Conduct financial research
+- Analyze investment potential
+- Recommend top stock picks
+- Send push notifications for selected investments
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+---
 
-First, if you haven't already, install uv:
+## 🧠 Tech Stack & Tools Used
 
-```bash
-pip install uv
-```
+- **CrewAI** – Multi-agent orchestration
+- **Serper.dev Tool** – Real-time Google web search
+- **PushNotificationTool** – Sends instant notifications for selected stocks
+- **OpenAI Embeddings** – `text-embedding-3-small` for vector storage
+- **Memory Modules**:
+  - **Long-Term Memory (LTM)**: Persistent knowledge across sessions using SQLite
+  - **Short-Term Memory (STM)**: Current session context using RAG
+  - **Entity Memory**: Tracks and relates company-specific data across tasks
 
-Next, navigate to your project directory and install the dependencies:
+---
 
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
-```
-### Customizing
+## 👥 Agents & Their Responsibilities
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+### 🔎 `trending_company_finder`
+- Uses `SerperDevTool` to search for companies trending in the news
 
-- Modify `src/trading/config/agents.yaml` to define your agents
-- Modify `src/trading/config/tasks.yaml` to define your tasks
-- Modify `src/trading/crew.py` to add your own logic, tools and specific args
-- Modify `src/trading/main.py` to add custom inputs for your agents and tasks
+### 📊 `financial_researcher`
+- Performs deep market research, future outlook, and investment analysis
 
-## Running the Project
+### ✅ `stock_picker`
+- Picks the best company based on research and triggers a push notification
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+### 🧠 `manager`
+- Orchestrates and delegates tasks among all agents using a hierarchical process
 
-```bash
-$ crewai run
-```
+---
 
-This command initializes the Best Trading Agent Crew, assembling the agents and assigning them tasks as defined in your configuration.
+## 🧠 Why Use Memory?
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+- **LTM**: Remembers past company picks and insights across runs
+- **STM**: Keeps short-term focus and task continuity within a session
+- **Entity Memory**: Tracks important entities (e.g., company name, ticker) to ensure accurate and context-aware analysis
 
-## Understanding Your Crew
+Memory makes the system smarter, more coherent, and capable of handling complex workflows over time.
 
-The Best Trading Agent Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+---
 
-## Support
+## 🔍 Web Search with Serper
 
-For support, questions, or feedback regarding the Best Trading Agent Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
+- Real-time news extraction using the `SerperDevTool`
+- Ensures that only **currently trending** companies are analyzed
 
-Let's create wonders together with the power and simplicity of crewAI.
+---
+
+## 📣 Push Notifications
+
+- After the best stock is selected, `PushNotificationTool` sends a real-time notification
+- Ideal for alerting users or triggering downstream actions
+
+---
+
+## 🔁 Process Flow
+
+1. **Find Trending Companies** – via `trending_company_finder`
+2. **Research Each Company** – handled by `financial_researcher`
+3. **Pick the Best One** – selected by `stock_picker`
+4. **Managed Hierarchically** – coordinated by `manager` agent
+
+---
