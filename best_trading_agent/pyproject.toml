@@ -1,7 +1,7 @@
 [project]
-name = "trading"
+name = "best_trading_agent"
 version = "0.1.0"
-description = "trading using crewAI"
+description = "Best-Trading-Agent using crewAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.14"
 dependencies = [
@@ -9,11 +9,11 @@ dependencies = [
 ]
 
 [project.scripts]
-trading = "trading.main:run"
-run_crew = "trading.main:run"
-train = "trading.main:train"
-replay = "trading.main:replay"
-test = "trading.main:test"
+best_trading_agent = "best_trading_agent.main:run"
+run_crew = "best_trading_agent.main:run"
+train = "best_trading_agent.main:train"
+replay = "best_trading_agent.main:replay"
+test = "best_trading_agent.main:test"
 
 [build-system]
 requires = ["hatchling"]
